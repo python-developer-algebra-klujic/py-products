@@ -24,15 +24,20 @@ currency_symbol = 'EUR'
 
 
 def create_product():
+    global product_id
+
     product = {}
 
     product_title = input('Upisite naziv proizvoda kojeg zelite dodati u sustav: ')
-    product_code = input('Upisite sifru proizvoda kojeg zelite dodati u sustav: ')
+    # product_code = input('Upisite sifru proizvoda kojeg zelite dodati u sustav: ')
     product_price = float(input('Upisite cijenu proizvoda kojeg zelite dodati u sustav: '))
 
     product['id'] = product_id
     product['title'] = product_title
-    product['code'] = product_code
+    # product['code'] = product_code
+    # Monitior -> MON00001; Tipkovnica TIP00001
+    # str.zfill(redni_broj, sirina_broja)
+    product['code'] = f'{product_title[0 : 3].upper()}{str.zfill(str(product_id), 5)}'
     product['price'] = product_price
     product['currency_symbol'] = currency_symbol
 
@@ -41,13 +46,10 @@ def create_product():
     return product
 
 
-
-
-
-
 while True:
 
     os.system('cls')
+
 
     print()
     print('Py Products')
