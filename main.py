@@ -19,6 +19,7 @@ DONE        te izbornik
 import os
 import sys
 from typing import Dict
+import json
 
 
 def load_config():
@@ -42,24 +43,43 @@ def load_config():
         sys.exit()
 
 
-def menu():
-    pass
+def menu() -> int:
+    os.system('cls')
+
+    print()
+    print('Py Products')
+    print()
+    print('1. Kreiraj proizvod')
+    print('2. Dohvati proizvod')
+    print('3. Ispisi sve proizvode')
+    print('0. Izlaz')
+    print()
+
+    return int(input())
 
 
-def print_product(product: Dict):
-    print()
-    print(f'Proizvod {product['title']}')
-    print()
-    print(f'Naziv: {product['title']}')
-    print(f'Sifra {product['code']}')
-    print(f'Cijena {product['price']} {product['currency_symbol']}')
-    print()
+def print_product(file_path: str):
+    try:
+        with open(file_path, 'r') as file_reader:
+            product = json.load(file_reader)
+
+            print()
+            print(f'Proizvod {product['title']}')
+            print()
+            print(f'Naziv: {product['title']}')
+            print(f'Sifra {product['code']}')
+            print(f'Cijena {product['price']} {product['currency_symbol']}')
+            print()
+
+    except Exception as ex:
+        print(f'Dogodola se greska {ex}!')
 
 
 def save_product(product: Dict, file_path: str):
     try:
         with open(file_path, 'a') as file_writer:
-            file_writer.write(f'{str(product)}\n')
+            json.dump(product, file_writer, indent=4)
+            # file_writer.write(f'{str(product)}\n')
             return 200
 
     except Exception as ex:
@@ -89,21 +109,28 @@ def create_product(product_id: int, currency_symbol: str):
 def main():
     # Ucitaj konfiguraciju
     config = load_config()
+
+    # TODO prepraviti tako da provjeri koji je zadnji ID u datoteci (db)
     current_product_id = config['product_id']
 
     while True:
-        # TODO Pozvati funkciju za prikaz izbornika
-        os.system('cls')
+        choice = menu()
+        match choice:
+            case 1:
+                product = create_product(current_product_id, config['currency_symbol'])
+                status = save_product(product, config['file_path'])
+                if status == 200:
+                    current_product_id += 1
+            case 2:
+                # 1. korak dohvati proizvod iz datoteke
+                print_product(config['file_path'])
+            case 3:
+                # 1. korak dohvati sve proizvode iz datoteke
+                pass
+            case 0:
+                sys.exit()
 
         print()
-        print('Py Products')
-        print()
-
-        product = create_product(current_product_id, config['currency_symbol'])
-        status = save_product(product, config['file_path'])
-        if status == 200:
-            current_product_id += 1
-
         next_product = input('Zelite li dodati jos jedan proizvod? (da/ne): ')
         if next_product.lower() != 'da':
             break

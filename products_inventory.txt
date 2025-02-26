@@ -1,2 +1,0 @@
-{'id': 1, 'title': 'Laptop', 'code': 'LAP00001', 'price': 1599.99, 'currency_symbol': 'EUR'}
-{'id': 2, 'title': 'Monitor', 'code': 'MON00002', 'price': 598.59, 'currency_symbol': 'EUR'}
