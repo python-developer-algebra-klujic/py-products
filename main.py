@@ -135,6 +135,7 @@ def main():
                 sys.exit()
             case _:
                 print('Krivi izbor!')
+                continue
 
         print()
         next_product = input('Zelite li dodati jos jedan proizvod? (da/ne): ')
