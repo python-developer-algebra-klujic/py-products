@@ -15,6 +15,9 @@ DONE        unos,
 DONE        pohranu
 DONE        i ispis proizvoda
 DONE        te izbornik
+
+TODO    Doraditi pohranu i ispis pojedinacnog proizvoda, svih proizvoda
+        Ucitavanje zadnje Product ID vrijednosti iz datoteke
 '''
 import os
 import sys
