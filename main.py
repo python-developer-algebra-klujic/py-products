@@ -1,7 +1,7 @@
 '''
 DONE    Kreirati aplikaciju koja omogucava korisniku neogranicen unos proizvoda
 
-te ih pohranjuje ih u datoteku (naizv datoteke po izboru, ali ucitan iz app_config.ini).
+te ih pohranjuje ih u datoteku (naziv datoteke po izboru, ali ucitan iz app_config.ini).
 Svaki proizvod treba biti u zasebnoj liniji u datoteci.
 
 
@@ -13,19 +13,38 @@ DONE    Cijenu - valutu NE cuvate u datoteci
 DONE    Oznaku valute - ucitajte iz app_config.ini datoteke
 
 
-Kreirajte sve potrebne funkcije za unos, pohranu i ispis proizvoda te izbornik
+Kreirajte sve potrebne funkcije za
+
+DONE        unos,
+
+pohranu i ispis proizvoda te izbornik
 '''
 import os
+import sys
 
 
-products = []
-product_id = 1
-currency_symbol = 'EUR'
+def load_config():
+    config = {}
+    try:
+        with open('app_config.ini', 'r') as file_reader:
+            file_content = file_reader.readlines()
+            # file_path = file_content[0] # putanja kamo cemo pohraniti nase proizvode
+            # currency_symbol = file_content[1] # 'EUR'
+            # product_id = file_content[2] # 1
+
+            config['file_path'] = file_content[0].strip()
+            config['currency_symbol'] = file_content[1].strip()
+            config['product_id'] = int(file_content[2]) # '1', a treba mi 1
+
+            return config
+
+    except Exception as ex:
+        print(f'Dogodila se greska: {ex}')
+        # Prekid izvrsavanja programa
+        sys.exit()
 
 
-def create_product():
-    global product_id
-
+def create_product(product_id: int, currency_symbol: str):
     product = {}
 
     product_title = input('Upisite naziv proizvoda kojeg zelite dodati u sustav: ')
@@ -41,28 +60,32 @@ def create_product():
     product['price'] = product_price
     product['currency_symbol'] = currency_symbol
 
-    product_id += 1
-
     return product
 
 
-while True:
+def main():
+    products = []
 
-    os.system('cls')
+    # Ucitaj konfiguraciju
+    config = load_config()
+    current_product_id = config['product_id']
+
+    while True:
+        os.system('cls')
+
+        print()
+        print('Py Products')
+        print()
+
+        products.append(create_product(current_product_id, config['currency_symbol']))
+        current_product_id += 1
+
+        # Provjera unosa u listu
+        print(products)
+
+        next_product = input('Zelite li dodati jos jedan proizvod? (da/ne): ')
+        if next_product.lower() != 'da':
+            break
 
 
-    print()
-    print('Py Products')
-    print()
-
-    # Unos proizvoda
-    # product = create_product()
-    # products.append(product)
-    products.append(create_product())
-
-    # Provjera unosa u listu
-    print(products)
-
-    next_product = input('Zelite li dodati jos jedan proizvod? (da/ne): ')
-    if next_product.lower() != 'da':
-        break
+main()
