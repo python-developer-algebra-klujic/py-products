@@ -47,7 +47,13 @@ def menu():
 
 
 def print_product(product: Dict):
-    pass
+    print()
+    print(f'Proizvod {product['title']}')
+    print()
+    print(f'Naziv: {product['title']}')
+    print(f'Sifra {product['code']}')
+    print(f'Cijena {product['price']} {product['currency_symbol']}')
+    print()
 
 
 def save_product(product: Dict, file_path: str):
