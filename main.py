@@ -1,8 +1,7 @@
 '''
 DONE    Kreirati aplikaciju koja omogucava korisniku neogranicen unos proizvoda
 DONE    te ih pohranjuje ih u datoteku (naziv datoteke po izboru, ali ucitan iz app_config.ini).
-        Svaki proizvod treba biti u zasebnoj liniji u datoteci.
-
+DONE    Svaki proizvod treba biti u zasebnoj liniji u datoteci.
 
 DONE    SVaki proizvod treba imati
 DONE    ID - redni broj od 1
@@ -11,12 +10,11 @@ DONE    Sifru
 DONE    Cijenu - valutu NE cuvate u datoteci
 DONE    Oznaku valute - ucitajte iz app_config.ini datoteke
 
-
-Kreirajte sve potrebne funkcije za
-
+DONE        Kreirajte sve potrebne funkcije za
 DONE        unos,
-
-pohranu i ispis proizvoda te izbornik
+DONE        pohranu
+DONE        i ispis proizvoda
+DONE        te izbornik
 '''
 import os
 import sys
@@ -42,6 +40,14 @@ def load_config():
         print(f'Dogodila se greska: {ex}')
         # Prekid izvrsavanja programa
         sys.exit()
+
+
+def menu():
+    pass
+
+
+def print_product(product: Dict):
+    pass
 
 
 def save_product(product: Dict, file_path: str):
@@ -88,7 +94,7 @@ def main():
         print()
 
         product = create_product(current_product_id, config['currency_symbol'])
-        status = save_product(product)
+        status = save_product(product, config['file_path'])
         if status == 200:
             current_product_id += 1
 
