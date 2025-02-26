@@ -1,7 +1,7 @@
 '''
 DONE    Kreirati aplikaciju koja omogucava korisniku neogranicen unos proizvoda
+DONE    te ih pohranjuje ih u datoteku (naziv datoteke po izboru, ali ucitan iz app_config.ini).
 
-te ih pohranjuje ih u datoteku (naziv datoteke po izboru, ali ucitan iz app_config.ini).
 Svaki proizvod treba biti u zasebnoj liniji u datoteci.
 
 
