@@ -1,14 +1,17 @@
 '''
-Kreirati aplikaciju koja omogucava korisniku neogranicen unos proizvoda
-te ih pohranjuje ih u datoteku (naizv datoteke po izboru, ali ucitan iz app_config.ini).
+DONE    Kreirati aplikaciju koja omogucava korisniku neogranicen unos proizvoda
 
+te ih pohranjuje ih u datoteku (naizv datoteke po izboru, ali ucitan iz app_config.ini).
 Svaki proizvod treba biti u zasebnoj liniji u datoteci.
-SVaki proizvod treba imati
-ID - redni broj od 1
-Naziv
-Sifru
-Cijenu - valutu NE cuvate u datoteci
-Oznaku valute - ucitajte iz app_config.ini datoteke
+
+
+DONE    SVaki proizvod treba imati
+DONE    ID - redni broj od 1
+DONE    Naziv
+DONE    Sifru
+DONE    Cijenu - valutu NE cuvate u datoteci
+DONE    Oznaku valute - ucitajte iz app_config.ini datoteke
+
 
 Kreirajte sve potrebne funkcije za unos, pohranu i ispis proizvoda te izbornik
 '''
@@ -17,13 +20,29 @@ import os
 
 products = []
 product_id = 1
-product = {
-    'id': 1,
-    'title': 'Printer',
-    'code': 'PRN',
-    'price': 250.99,
-    'currency_symbol': 'EUR'
-}
+currency_symbol = 'EUR'
+
+
+def create_product():
+    product = {}
+
+    product_title = input('Upisite naziv proizvoda kojeg zelite dodati u sustav: ')
+    product_code = input('Upisite sifru proizvoda kojeg zelite dodati u sustav: ')
+    product_price = float(input('Upisite cijenu proizvoda kojeg zelite dodati u sustav: '))
+
+    product['id'] = product_id
+    product['title'] = product_title
+    product['code'] = product_code
+    product['price'] = product_price
+    product['currency_symbol'] = currency_symbol
+
+    product_id += 1
+
+    return product
+
+
+
+
 
 
 while True:
@@ -33,9 +52,13 @@ while True:
     print()
     print('Py Products')
     print()
-    product = input('Upisite proizvod kojeg zelite dodati u sustav: ')
-    products.append(product)
 
+    # Unos proizvoda
+    # product = create_product()
+    # products.append(product)
+    products.append(create_product())
+
+    # Provjera unosa u listu
     print(products)
 
     next_product = input('Zelite li dodati jos jedan proizvod? (da/ne): ')
