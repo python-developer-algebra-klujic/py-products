@@ -133,6 +133,8 @@ def main():
                 pass
             case 0:
                 sys.exit()
+            case _:
+                print('Krivi izbor!')
 
         print()
         next_product = input('Zelite li dodati jos jedan proizvod? (da/ne): ')
